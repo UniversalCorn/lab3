@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"net/url"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 )
 
 type Connection struct {

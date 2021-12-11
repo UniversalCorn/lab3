@@ -1,4 +1,4 @@
-Create tables.
+--Create tables.
 	DROP TABLE IF EXISTS machines;
 	DROP TABLE IF EXISTS discks;
 

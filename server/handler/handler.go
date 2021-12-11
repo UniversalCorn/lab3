@@ -3,18 +3,16 @@ package hendler
 import (
 	"net/http"
 
-	gs "github.com/IP94-rocketBunny-architecture/lab3/genStore"
+	gs "github.com/IP94-rocketBunny-architecture/lab3/server/store"
 )
 
 type Handlers struct {
-	db *gs.GenSore
+	db *gs.UniqueStore
 }
 
 func (h *Handlers) HandleMachines(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		getMachines(rw, req)
-	} else if req.Method == "POST" {
-		addMachine(rw, req)
+		getMachines(h.db, rw, req)
 	} else {
 		rw.WriteHeader(http.StatusMethodNotAllowed)
 	}

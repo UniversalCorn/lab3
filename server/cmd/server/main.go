@@ -2,9 +2,23 @@ package main
 
 import (
 	"database/sql"
+	"flag"
 	"log"
+	"net/http"
+	"os"
+	"os/signal"
 
-	"github.com/IP94-rocketBunny-architecture/lab3/db"
+	"github.com/IP94-rocketBunny-architecture/lab3/server/db"
+)
+
+type ServerEnv struct {
+	Port int
+	Host string
+}
+
+var (
+	servPORT = flag.Int("p", 8000, "HTTP port number")
+	servHOST = flag.String("h", "localhost", "HTTP host name")
 )
 
 func NewDbConnection() (*sql.DB, error) {
@@ -19,12 +33,25 @@ func NewDbConnection() (*sql.DB, error) {
 }
 
 func main() {
-	// db, err := NewDbConnection()
-	// if err != nil {
-	// 	log.Fatalf("failed to initialize db: %s", err.Error())
-	// }
-	server := new(Server)
-	if err := server.Run("8000"); err != nil {
-		log.Fatal("Cannot initialize forums server: %s", err.Error())
+	flag.Parse()
+	senv := &ServerEnv{Port: *servPORT, Host: *servHOST}
+	server, err := NewServer(senv)
+	if err != nil {
+		log.Fatalf("Cannot initialize forums server: %s", err)
+	}
+
+	go func() {
+		sigChannel := make(chan os.Signal, 1)
+		signal.Notify(sigChannel, os.Interrupt)
+		<-sigChannel
+		if err := server.Close(); err != nil && err != http.ErrServerClosed {
+			log.Printf("Error stopping the server: %s", err)
+		}
+	}()
+
+	if server.Run() == http.ErrServerClosed {
+		log.Printf("HTTP server stopped")
+	} else {
+		log.Fatalf("Cannot start HTTP server: %s", err)
 	}
 }

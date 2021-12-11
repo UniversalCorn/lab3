@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+type errorObject struct {
+	Message string `json:"message"`
+}
+
 func WriteJsonBadRequest(rw http.ResponseWriter, message string) {
 	writeJson(rw, http.StatusBadRequest, &errorObject{Message: message})
 }
