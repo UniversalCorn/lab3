@@ -17,7 +17,7 @@ type ServerEnv struct {
 }
 
 var (
-	servPORT = flag.Int("p", 8000, "HTTP port number")
+	servPORT = flag.Int("p", 8080, "HTTP port number")
 	servHOST = flag.String("h", "localhost", "HTTP host name")
 )
 
