@@ -4,23 +4,27 @@ Create tables.
 
 	CREATE TABLE machines
 	(
-		id   SERIAL PRIMARY KEY,
-		name VARCHAR(50),
-    cpuCount SMALLINT,
-    totalDiskSpace BIGINT,
+		Id INT AUTO_INCREMENT PRIMARY KEY,
+		MachineName VARCHAR(50) NOT NULL,
+    CpuCount INT,
+    TotalDiskSpace INT,
 	);
 
 	CREATE TABLE discks
 	(
-		id   SERIAL PRIMARY KEY,
-		totalDiskSpace BIGINT
+		Id INT AUTO_INCREMENT PRIMARY KEY,
+		TotalDiskSpace INT
 	);
 
 	-- Insert demo data.
-	INSERT INTO machines (name) VALUES ('server-1');
-  INSERT INTO machines (name) VALUES ('server-2');
-  INSERT INTO machines (name) VALUES ('server-3');
+	INSERT INTO machines (MachineName, CpuCount, TotalDiskSpace)
+  VALUES
+  ('server-1', 4, 31457280),
+  ('server-2', 4, 42567391),
+  ('server-3', 4, 53678402);
 
-	INSERT INTO discks (id) VALUES (1);
-  INSERT INTO discks (id) VALUES (2);
-  INSERT INTO discks (id) VALUES (3);
+  INSERT INTO discks (TotalDiskSpace)
+  VALUES
+  (2054617),
+  (3145628),
+  (4256739);
