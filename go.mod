@@ -1,4 +1,4 @@
-module github.com/IP94-rocketBunny-architecture/lab3
+module github.com/UniversalCorn/lab3
 
 go 1.17
 

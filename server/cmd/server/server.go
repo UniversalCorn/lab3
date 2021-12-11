@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	h "github.com/IP94-rocketBunny-architecture/lab3/server/handler"
+	h "github.com/UniversalCorn/lab3/server/handler"
 )
 
 type Server struct {

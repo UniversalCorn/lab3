@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/IP94-rocketBunny-architecture/lab3/server/db"
+	"github.com/UniversalCorn/lab3/server/db"
 )
 
 type ServerEnv struct {

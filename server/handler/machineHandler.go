@@ -3,8 +3,8 @@ package hendler
 import (
 	"net/http"
 
-	gs "github.com/IP94-rocketBunny-architecture/lab3/server/store"
-	"github.com/IP94-rocketBunny-architecture/lab3/tools"
+	gs "github.com/UniversalCorn/lab3/server/store"
+	"github.com/UniversalCorn/lab3/tools"
 	_ "github.com/go-sql-driver/mysql"
 )
 
