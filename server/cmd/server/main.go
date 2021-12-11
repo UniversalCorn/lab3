@@ -24,7 +24,7 @@ var (
 
 func NewDbConnection() (*sql.DB, error) {
 	conn := &db.Connection{
-		DbName:     "lab3",
+		DbName:     "lab33",
 		User:       "mysql",
 		Password:   "mysql",
 		Host:       "tcp(localhost:3306)",
