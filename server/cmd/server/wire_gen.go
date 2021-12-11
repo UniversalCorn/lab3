@@ -7,8 +7,8 @@
 package main
 
 import (
-	"github.com/IP94-rocketBunny-architecture/lab3/server/handler"
-	"github.com/IP94-rocketBunny-architecture/lab3/server/store"
+	"github.com/UniversalCorn/lab3/server/handler"
+	"github.com/UniversalCorn/lab3/server/store"
 	"github.com/google/wire"
 )
 

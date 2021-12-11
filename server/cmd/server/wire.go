@@ -4,8 +4,8 @@
 package main
 
 import (
-	h "github.com/IP94-rocketBunny-architecture/lab3/server/handler"
-	gs "github.com/IP94-rocketBunny-architecture/lab3/server/store"
+	h "github.com/UniversalCorn/lab3/server/handler"
+	gs "github.com/UniversalCorn/lab3/server/store"
 	"github.com/google/wire"
 )
 
