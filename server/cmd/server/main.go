@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"time"
 
 	"github.com/UniversalCorn/lab3/server/db"
 )
@@ -26,10 +27,17 @@ func NewDbConnection() (*sql.DB, error) {
 		DbName:     "lab3",
 		User:       "mysql",
 		Password:   "mysql",
-		Host:       "localhost",
+		Host:       "tcp(localhost:3306)",
 		DisableSSL: true,
 	}
-	return conn.Open()
+	database, err := conn.Open()
+	if err != nil {
+		return nil, err
+	}
+	database.SetConnMaxLifetime(time.Minute * 3)
+	database.SetMaxOpenConns(10)
+	database.SetMaxIdleConns(10)
+	return database, err
 }
 
 func main() {
