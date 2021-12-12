@@ -24,10 +24,10 @@ var (
 
 func NewDbConnection() (*sql.DB, error) {
 	conn := &db.Connection{
-		DbName:     "lab33",
+		DbName:     "lab3",
 		User:       "mysql",
 		Password:   "mysql",
-		Host:       "tcp(localhost:3306)",
+		Host:       "tcp(localhost:3307)",
 		DisableSSL: true,
 	}
 	database, err := conn.Open()

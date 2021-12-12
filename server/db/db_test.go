@@ -11,7 +11,7 @@ func TestDbConnection_ConnectionURL(t *testing.T) {
 		DbName:     "lab3",
 		User:       "mysql",
 		Password:   "mysql",
-		Host:       "location",
+		Host:       "localhost",
 		DisableSSL: true,
 	}
 	fmt.Println(conn.ConnectionURL())
