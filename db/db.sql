@@ -3,7 +3,7 @@
 
 	CREATE TABLE machines
 	(
-		Id INT AUTO_INCREMENT PRIMARY KEY,
+		Id INT PRIMARY KEY,
 		MachineName VARCHAR(50) NOT NULL,
     	CpuCount INT,
     	TotalDiskSpace INT
@@ -11,7 +11,7 @@
 
 	CREATE TABLE discks
 	(
-		Id INT AUTO_INCREMENT PRIMARY KEY,
+		Id INT PRIMARY KEY,
 		TotalDiskSpace INT
 	);
 

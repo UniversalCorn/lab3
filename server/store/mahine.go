@@ -2,8 +2,9 @@ package uniqueStore
 
 import (
 	"database/sql"
+	"fmt"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 )
 
 type MachineStore struct {
@@ -22,18 +23,18 @@ func NewMachineStore(db *sql.DB) *MachineStore {
 }
 
 func (m *MachineStore) GetMachine() ([]*Machine, error) {
-	rows, err := m.Db.Query("SELECT Id, MachineName, CpuCount, TotalDiskSpace FROM machines")
+	rows, err := m.Db.Query("SELECT * FROM machines")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-
 	var res []*Machine
 	for rows.Next() {
 		var c Machine
 		if err := rows.Scan(&c.Id, &c.MachineName, &c.CpuCount, &c.TotalDiskSpace); err != nil {
 			return nil, err
 		}
+		fmt.Print(c)
 		res = append(res, &c)
 	}
 	if res == nil {

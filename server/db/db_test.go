@@ -1,22 +1,16 @@
 package db
 
-import (
-	"database/sql"
-	"fmt"
-	"testing"
-)
+import "testing"
 
 func TestDbConnection_ConnectionURL(t *testing.T) {
 	conn := &Connection{
-		DbName:     "lab3",
-		User:       "mysql",
-		Password:   "mysql",
+		DbName:     "db1",
+		User:       "user1",
+		Password:   "pass1",
 		Host:       "localhost",
 		DisableSSL: true,
 	}
-	fmt.Println(conn.ConnectionURL())
-	sql.Open("mysql", conn.ConnectionURL())
-	if conn.ConnectionURL() != "mysql://mysql:mysql@localhost/tables?sslmode=disable" {
+	if conn.ConnectionURL() != "postgres://user1:pass1@localhost/db1?sslmode=disable" {
 		t.Error("Unexpected connection string")
 	}
 }

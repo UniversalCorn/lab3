@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"time"
 
 	"github.com/UniversalCorn/lab3/server/db"
 )
@@ -18,26 +17,19 @@ type ServerEnv struct {
 }
 
 var (
-	servPORT = flag.Int("p", 8080, "HTTP port number")
+	servPORT = flag.Int("p", 8000, "HTTP port number")
 	servHOST = flag.String("h", "localhost", "HTTP host name")
 )
 
 func NewDbConnection() (*sql.DB, error) {
 	conn := &db.Connection{
 		DbName:     "lab3",
-		User:       "mysql",
-		Password:   "mysql",
-		Host:       "tcp(localhost:3307)",
+		User:       "postgresql",
+		Password:   "postgresql",
+		Host:       "localhost",
 		DisableSSL: true,
 	}
-	database, err := conn.Open()
-	if err != nil {
-		return nil, err
-	}
-	database.SetConnMaxLifetime(time.Minute * 3)
-	database.SetMaxOpenConns(10)
-	database.SetMaxIdleConns(10)
-	return database, err
+	return conn.Open()
 }
 
 func main() {
