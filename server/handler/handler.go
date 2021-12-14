@@ -27,10 +27,8 @@ func (h *Handlers) HandleDiscks(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func (h *Handlers) GetMachine(rw http.ResponseWriter, req *http.Request) {
-	//отадть юзеру все машины
-}
-
-func (h *Handlers) GetDisck(rw http.ResponseWriter, req *http.Request) {
-	//отадть юзеру все диски
+func (h *Handlers) HandleUpdate(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "POST" {
+		updateMachineById(h.db, rw, req)
+	}
 }
