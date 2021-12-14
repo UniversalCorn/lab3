@@ -25,6 +25,6 @@ func (gs *UniqueStore) GetDicks() ([]*Disck, error) {
 	return gs.DStore.GetDicks()
 }
 
-func (gs *UniqueStore) FindById(machineId int, disckId int) (*Machine, error) {
-	return gs.MStore.FindById(machineId, disckId)
-}
+// func (gs *UniqueStore) FindById(machineId int, disckId int) (*Machine, error) {
+// 	return gs.MStore.FindById(machineId, disckId)
+// }

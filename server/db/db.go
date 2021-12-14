@@ -30,5 +30,5 @@ func (c *Connection) ConnectionURL() string {
 }
 
 func (c *Connection) Open() (*sql.DB, error) {
-	return sql.Open("postgres", "postgres://postgresql:postgresql@localhost/lab3?sslmode=disable")
+	return sql.Open("postgres", "postgresql://postgresql:postgresql@localhost/lab3?sslmode=disable")
 }

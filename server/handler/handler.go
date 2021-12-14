@@ -27,8 +27,8 @@ func (h *Handlers) HandleDiscks(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func (h *Handlers) HandleUpdate(rw http.ResponseWriter, req *http.Request) {
-	if req.Method == "POST" {
-		updateMachineById(h.db, rw, req)
-	}
-}
+// func (h *Handlers) HandleUpdate(rw http.ResponseWriter, req *http.Request) {
+// 	if req.Method == "POST" {
+// 		updateMachineById(h.db, rw, req)
+// 	}
+// }
