@@ -18,8 +18,7 @@ func (ser *Server) Run() error {
 	handlersCollection := map[string]http.HandlerFunc{
 		"/machines": ser.Handlers.HandleMachines,
 		"/discks":   ser.Handlers.HandleDiscks,
-		"/machine":  ser.Handlers.GetMachine,
-		"/disck":    ser.Handlers.GetDisck,
+		"/update":   ser.Handlers.HandleUpdate,
 	}
 	for route, handler := range handlersCollection {
 		http.Handle(route, handler)

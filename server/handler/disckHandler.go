@@ -1,10 +1,16 @@
 package hendler
 
 import (
-	"fmt"
 	"net/http"
+
+	gs "github.com/UniversalCorn/lab3/server/store"
+	"github.com/UniversalCorn/lab3/tools"
 )
 
-func getDiscks(rw http.ResponseWriter, req *http.Request) {
-	fmt.Printf("Here will get discks")
+func getDiscks(db *gs.UniqueStore, rw http.ResponseWriter, req *http.Request) {
+	if res, err := db.GetDicks(); err != nil {
+		tools.WriteJsonBadRequest(rw, err.Error())
+	} else {
+		tools.WriteJsonOk(rw, res)
+	}
 }

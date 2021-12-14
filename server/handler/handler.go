@@ -21,7 +21,7 @@ func (h *Handlers) HandleMachines(rw http.ResponseWriter, req *http.Request) {
 func (h *Handlers) HandleDiscks(rw http.ResponseWriter, req *http.Request) {
 
 	if req.Method == "GET" {
-		getDiscks(rw, req)
+		getDiscks(h.db, rw, req)
 	} else {
 		rw.WriteHeader(http.StatusMethodNotAllowed)
 	}

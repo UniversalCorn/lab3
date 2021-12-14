@@ -20,3 +20,11 @@ func NewStore(db *sql.DB) *UniqueStore {
 func (gs *UniqueStore) GetMachine() ([]*Machine, error) {
 	return gs.MStore.GetMachine()
 }
+
+func (gs *UniqueStore) GetDicks() ([]*Disck, error) {
+	return gs.DStore.GetDicks()
+}
+
+func (gs *UniqueStore) FindById(machineId int, disckId int) (*Machine, error) {
+	return gs.MStore.FindById(machineId, disckId)
+}
