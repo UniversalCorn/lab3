@@ -22,7 +22,7 @@ func NewMachineStore(db *sql.DB) *MachineStore {
 	return &MachineStore{Db: db}
 }
 
-func (m *MachineStore) GetMachine() ([]*Machine, error) {
+func (m *MachineStore) GetMachines() ([]*Machine, error) {
 	rows, err := m.Db.Query("SELECT * FROM machines")
 	if err != nil {
 		return nil, err
@@ -43,36 +43,27 @@ func (m *MachineStore) GetMachine() ([]*Machine, error) {
 	return res, nil
 }
 
-// func (m *MachineStore) FindById(machineId int, disckId int) (*Machine, error) {
+func (m *MachineStore) IncreaseMachineSpace(MiD int, disck []*Disk) ([]*Machine, error) {
+	rowsM, err := m.Db.Query(`SELECT * FROM machines WHERE machines.Id = $1`, MiD)
+	if err != nil {
+		return nil, err
+	}
+	defer rowsM.Close()
 
-// 	rowsD, err := m.Db.Query(`SELECT * FROM  discks WHERE discks.Id = $1`, disckId)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rowsD.Close()
-// }
+	var res []*Machine
+	for rowsM.Next() {
+		var c Machine
+		if err := rowsM.Scan(&c.Id, &c.MachineName, &c.CpuCount, &c.TotalDiskSpace); err != nil {
+			return nil, err
+		}
+		dT := disck[len(disck)-1].TotalDiskSpace
+		c.TotalDiskSpace += dT
+		res = append(res, &c)
+	}
 
-// func (m *MachineStore) FindMachineById(machineId int, disckId int) (*Machine, error) {
-// 	rowsM, err := m.Db.Query(`SELECT * FROM machines WHERE machines.Id = $1`, machineId)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rowsM.Close()
+	if res == nil {
+		res = make([]*Machine, 0)
+	}
 
-// 	var res []*Machine
-// 	for rowsM.Next() {
-// 		var c Machine
-// 		if err := rowsM.Scan(&c.Id, &c.MachineName, &c.CpuCount, &c.TotalDiskSpace); err != nil {
-// 			return nil, err
-// 		}
-// 		res = append(res, &c)
-// 	}
-
-// 	if res == nil {
-// 		res = make([]*Machine, 0)
-// 	}
-
-// 	fmt.Print(res)
-
-// 	return res, nil
-// }
+	return res, nil
+}

@@ -30,7 +30,9 @@ const machineClient = require('./machinesClinet');
 
 const testData = [
     ['getMachines', 'Getting all machines', []],
-    ['getDisks', 'Getting all disks', []]
+    ['getDisks', 'Getting all disks', []],
+    ['toIncreaseVolume', 'Get machine by id', [{'id' : 1} ,{'id' : 1}]]
+
 ]
 
 const sendTestResponses = async () => {

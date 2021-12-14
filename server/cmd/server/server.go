@@ -16,9 +16,9 @@ type Server struct {
 
 func (ser *Server) Run() error {
 	handlersCollection := map[string]http.HandlerFunc{
-		"/machines": ser.Handlers.HandleMachines,
-		"/discks":   ser.Handlers.HandleDiscks,
-		// "/update":   ser.Handlers.HandleUpdate,
+		"/getMachines":      ser.Handlers.HandleMachines,
+		"/getDisks":         ser.Handlers.HandleDisks,
+		"/toIncreaseVolume": ser.Handlers.HandleVolume,
 	}
 	for route, handler := range handlersCollection {
 		http.Handle(route, handler)

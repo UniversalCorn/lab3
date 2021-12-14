@@ -18,17 +18,26 @@ func (h *Handlers) HandleMachines(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func (h *Handlers) HandleDiscks(rw http.ResponseWriter, req *http.Request) {
-
+func (h *Handlers) HandleDisks(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		getDiscks(h.db, rw, req)
+		getDisks(h.db, rw, req)
 	} else {
 		rw.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }
 
-// func (h *Handlers) HandleUpdate(rw http.ResponseWriter, req *http.Request) {
-// 	if req.Method == "POST" {
-// 		updateMachineById(h.db, rw, req)
-// 	}
-// }
+func (h *Handlers) HandleVolume(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "POST" {
+		increaseMachineSpace(h.db, rw, req)
+	} else {
+		rw.WriteHeader(http.StatusMethodNotAllowed)
+	}
+}
+
+func (h *Handlers) HandleFindByIdDisk(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "POST" {
+		findByIdDisk(h.db, rw, req)
+	} else {
+		rw.WriteHeader(http.StatusMethodNotAllowed)
+	}
+}

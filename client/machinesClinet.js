@@ -62,13 +62,19 @@ const makeRquest = (options, responseJSON = null) => new Promise((res, rej) => {
 //   { name }
 // );
 
-const getMachines = () => makeRquest({ method: 'GET', path: '/machines' });
-const getDisks = () => makeRquest({ method: 'GET', path: '/discks' });
+const toIncreaseVolume = (id1, id2)  => makeRquest(
+  { method: 'POST', path: '/toIncreaseVolume' },
+  [ id1, id2 ]
+);
+
+const getMachines = () => makeRquest({ method: 'GET', path: '/getMachines' });
+const getDisks = () => makeRquest({ method: 'GET', path: '/getDisks' });
 
 module.exports = {
 //   addForum,
 //   getMachine,
+  toIncreaseVolume,
   getMachines,
- // getDisk,
+  // getDisk,
   getDisks
 }

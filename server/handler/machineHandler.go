@@ -1,6 +1,8 @@
 package hendler
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 
 	gs "github.com/UniversalCorn/lab3/server/store"
@@ -8,39 +10,51 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type ResponseName struct {
-	MachineID int `json:"Id"`
-	DisckId   int `json:"Id"`
+type MachineID struct {
+	MiD int `json:"Id"`
 }
 
 func getMachines(db *gs.UniqueStore, rw http.ResponseWriter, req *http.Request) {
-	if res, err := db.GetMachine(); err != nil {
+	if res, err := db.GetMachines(); err != nil {
 		tools.WriteJsonBadRequest(rw, err.Error())
 	} else {
 		tools.WriteJsonOk(rw, res)
 	}
 }
 
-// func updateMachineById(db *gs.UniqueStore, rw http.ResponseWriter, req *http.Request) {
-// 	if req.Method != "GET" {
-// 		rw.WriteHeader(http.StatusMethodNotAllowed)
-// 		return
-// 	}
-// 	var resName ResponseName
+func increaseMachineSpace(db *gs.UniqueStore, rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "GET" {
+		rw.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
 
-// 	if err := json.NewDecoder(req.Body).Decode(&resName); err != nil {
-// 		log.Printf("Error decoding interest input: %s", err)
-// 		tools.WriteJsonBadRequest(rw, "bad JSON payload")
-// 		return
-// 	}
-// 	if resName.MachineID < 1 || resName.DisckId < 1 {
-// 		tools.WriteJsonBadRequest(rw, "machine ID or disck ID is not provided")
-// 		return
-// 	}
+	resId := []MachineID{}
 
-// 	if res, err := db.FindById(resName.MachineID, resName.DisckId); err != nil {
-// 		tools.WriteJsonBadRequest(rw, err.Error())
-// 	} else {
-// 		tools.WriteJsonOk(rw, res)
-// 	}
-// }
+	jsonString, err := ioutil.ReadAll(req.Body)
+	defer req.Body.Close()
+
+	if err != nil {
+		tools.WriteJsonBadRequest(rw, "bad JSON payload")
+		return
+	}
+	if err := json.Unmarshal([]byte(jsonString), &resId); err != nil {
+		tools.WriteJsonBadRequest(rw, "bad JSON payload")
+		return
+	}
+
+	if len(resId) == 0 {
+		tools.WriteJsonBadRequest(rw, "machine ID and disck ID is not provided")
+		return
+	}
+
+	if resId[0].MiD < 1 && resId[1].MiD < 1 {
+		tools.WriteJsonBadRequest(rw, "machine ID or disck ID is not provided")
+		return
+	}
+
+	if res, err := db.IncreaseMachineSpace([]int{resId[0].MiD, resId[1].MiD}); err != nil {
+		tools.WriteJsonInternalError(rw, "machine with this ID is not exists")
+	} else {
+		tools.WriteJsonOk(rw, res)
+	}
+}
