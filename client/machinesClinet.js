@@ -40,41 +40,35 @@ const makeRquest = (options, responseJSON = null) => new Promise((res, rej) => {
     servRespose.end();
 });
 
-// client requests
-
-// const addForum = (name, topic) => makeRquest(
-//   { method: 'POST', path: '/forums' },
-//   { name, topic }
-// );
-
-// const addUser = (name, interests) => makeRquest(
-//   { method: 'POST', path: '/users' },
-//   { name, interests }
-// );
-
-// const getMachine = name => makeRquest(
-//   { method: 'POST', path: '/machine' },
-//   { name }
-// );
-
-// const getDisk = name => makeRquest(
-//   { method: 'POST', path: '/disk' },
-//   { name }
-// );
 
 const toIncreaseVolume = (id1, id2)  => makeRquest(
   { method: 'POST', path: '/toIncreaseVolume' },
   [ id1, id2 ]
 );
 
+const findByIdMachine = id => makeRquest(
+  { method: 'POST', path: '/findByIdMachine' }, 
+  { id }
+);
+
+const findByIdDisk = id => makeRquest(
+  { method: 'POST', path: '/findByIdDisk' },
+  { id }
+);
+
+
+
 const getMachines = () => makeRquest({ method: 'GET', path: '/getMachines' });
 const getDisks = () => makeRquest({ method: 'GET', path: '/getDisks' });
 
+
+
+
+
 module.exports = {
-//   addForum,
-//   getMachine,
   toIncreaseVolume,
   getMachines,
-  // getDisk,
-  getDisks
+  getDisks,
+  findByIdMachine,
+  findByIdDisk
 }
