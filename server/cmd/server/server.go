@@ -19,6 +19,8 @@ func (ser *Server) Run() error {
 		"/getMachines":      ser.Handlers.HandleMachines,
 		"/getDisks":         ser.Handlers.HandleDisks,
 		"/toIncreaseVolume": ser.Handlers.HandleVolume,
+		"/findByIdMachine":  ser.Handlers.HandleFindByIdMachine,
+		"/findByIdDisk":     ser.Handlers.HandleFindByIdDisk,
 	}
 	for route, handler := range handlersCollection {
 		http.Handle(route, handler)

@@ -58,3 +58,27 @@ func increaseMachineSpace(db *gs.UniqueStore, rw http.ResponseWriter, req *http.
 		tools.WriteJsonOk(rw, res)
 	}
 }
+
+func findByIdMachine(db *gs.UniqueStore, rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "GET" {
+		rw.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	var resId MachineID
+
+	if err := json.NewDecoder(req.Body).Decode(&resId); err != nil {
+		tools.WriteJsonBadRequest(rw, "bad JSON payload")
+		return
+	}
+
+	if resId.MiD < 1 {
+		tools.WriteJsonBadRequest(rw, "disck ID is not provided")
+		return
+	}
+
+	if res, err := db.FindByIdMachine(resId.MiD); err != nil {
+		tools.WriteJsonInternalError(rw, "disk with this ID is not exists")
+	} else {
+		tools.WriteJsonOk(rw, res)
+	}
+}

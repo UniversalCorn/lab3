@@ -40,3 +40,7 @@ func (gs *UniqueStore) IncreaseMachineSpace(idArr []int) ([]*Machine, error) {
 	}
 	return result, nil
 }
+
+func (gs *UniqueStore) FindByIdMachine(Id int) ([]*Machine, error) {
+	return gs.MStore.FindByIdMachine(Id)
+}

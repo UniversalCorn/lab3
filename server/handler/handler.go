@@ -41,3 +41,11 @@ func (h *Handlers) HandleFindByIdDisk(rw http.ResponseWriter, req *http.Request)
 		rw.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }
+
+func (h *Handlers) HandleFindByIdMachine(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "POST" {
+		findByIdMachine(h.db, rw, req)
+	} else {
+		rw.WriteHeader(http.StatusMethodNotAllowed)
+	}
+}
